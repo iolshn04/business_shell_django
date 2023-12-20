@@ -1,16 +1,14 @@
-{% extends 'myauth/base.html' %}
+{% extends 'blog/base.html' %}
 
 {% block title %}
-  Login
+  Create post
 {% endblock %}
 
 {% block body %}
-
+  <h1>Create post</h1>
   <form method="post">
     {% csrf_token %}
-
     {{ form.as_p }}
-
-    <button type="submit">Login</button>
+    <input type="submit" value="Create">
   </form>
 {% endblock %}

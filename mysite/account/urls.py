@@ -3,8 +3,8 @@ from django.urls import path
 
 
 from .views import (
-    MyLogoutView,
     RegisterView,
+    logout_view
 )
 
 app_name = "account"
@@ -13,11 +13,11 @@ urlpatterns = [
     path(
         "login/",
         LoginView.as_view(
-            template_name="account/home.html",
+            template_name="account/login.html",
             redirect_authenticated_user=True,
         ),
         name="login",
     ),
-    path("logout/", MyLogoutView.as_view(), name="logout"),
+    path("logout/", logout_view, name="logout"),
     path("register/", RegisterView.as_view(), name="register"),
 ]

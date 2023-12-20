@@ -1,4 +1,3 @@
-from django.views.generic import DetailView
 from rest_framework import viewsets
 from .serializers import PostSerializer, CommentSerializer
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -34,12 +33,11 @@ def create_comment(request, pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            if form.is_valid():
-                comment = form.save(commit=False)
-                comment.post = post
-                comment.author = request.user
-                comment.save()
-                return redirect('blog:post_detail', pk=pk)
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('blog:post_detail', pk=post.pk)
     else:
         form = CommentForm()
     context = {
@@ -53,9 +51,10 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
             form.save()
-            url = reverse("blog:home")
-            return redirect(url)
+            return redirect('blog:home')
     else:
         form = PostForm()
     context = {

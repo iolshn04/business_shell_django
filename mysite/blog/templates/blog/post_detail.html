@@ -17,23 +17,23 @@
     <p>Автор: {{ post.author }}</p>
     <hr>
 
-    <h2>Комментарии</h2>
+    <h2>Comments</h2>
     {% for comment in comments %}
         <p>{{ comment.content }}</p>
         <p>Автор: {{ comment.author }}</p>
         <hr>
     {% empty %}
-        <p>Нет комментариев</p>
+        <p>No comments yet</p>
     {% endfor %}
 
     {% if request.user.is_authenticated %}
-        <h2>Оставить комментарий</h2>
-
+        <h2>Leave a comment</h2>
+        <a href="{% url 'blog:create_comment' pk=post.pk %}">Create</a>
     {% else %}
-        <p>Только зарегистрированные пользователи могут оставлять комментарии.
+        <p>Only registered users can leave comments.
     {% endif %}
     <div>
-        <a href="{% url 'blog:home' %}">На главную</a>
+        <a href="{% url 'blog:home' %}">Home page</a>
     </div>
 
 {% endblock %}
